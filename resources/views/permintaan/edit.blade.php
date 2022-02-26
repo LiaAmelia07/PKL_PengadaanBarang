@@ -40,11 +40,11 @@
                 </div>
                 <div class="form-group">
                     <label>Qty</label>
-                    <input value="{{ $pengajuan->qty }}" type="text" name="qty" class="form-control" placeholder="Qty">
+                    <input value="{{ $pengajuan->qty }}" type="number" name="qty" class="form-control" placeholder="Qty">
                 </div>
                 <div class="form-group">
                     <label>Perkiraan Biaya</label>
-                    <input value="{{ $pengajuan->perkiraan_biaya}}" type="text" name="perkiraan_biaya" class="form-control" placeholder="Perkiraan Biaya">
+                    <input value="{{ $pengajuan->perkiraan_biaya}}" type="number" name="perkiraan_biaya" class="form-control" placeholder="Perkiraan Biaya">
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary" type="submit">Simpan</button>

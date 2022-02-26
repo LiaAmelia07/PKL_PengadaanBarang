@@ -45,7 +45,7 @@
         <tbody>
             @php $no=1 @endphp
                     <!-- data -->
-                    @foreach ($masuk as $data)
+                    @foreach ($bm as $data)
                     <tr>
                         <td><center>{{$no++}}</center></td>
                         <td>{{$data->tanggal_masuk}}</td>

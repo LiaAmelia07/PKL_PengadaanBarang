@@ -28,11 +28,11 @@
                 </div>
                 <div class="form-group">
                     <label>No Telepon</label>
-                    <input value="{{ $supplier->no_telepon }}" type="text" name="no_telepon" class="form-control" placeholder="No Telepon">
+                    <input value="{{ $supplier->no_telepon }}" type="number" name="no_telepon" class="form-control" placeholder="No Telepon">
                 </div>
                 <div class="form-group">
                     <label>Alamat</label>
-                    <textarea name="alamat" class="form-control">{{$supplier->alamat}}</textarea>
+                    <textarea name="alamat" class="form-control" placeholder="Masukan Alamat">{{$supplier->alamat}} </textarea>
                 </div>
                 <div class="form-group">
                     <label>Harga</label>
@@ -57,5 +57,5 @@
 @stop
 
  @section('js')
- 
+
 @stop

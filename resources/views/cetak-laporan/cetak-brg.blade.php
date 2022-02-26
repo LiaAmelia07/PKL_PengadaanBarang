@@ -43,7 +43,7 @@
         <tbody>
             @php $no=1 @endphp
                     <!-- data -->
-                    @foreach ($barang as $data)
+                    @foreach ($brg as $data)
                     <tr>
                         <td><center>{{$no++}}</center></td>
                         <td>{{$data->kode_barang}}</td>

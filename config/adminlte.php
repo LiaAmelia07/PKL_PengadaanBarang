@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Pengadaan Barang',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -47,7 +47,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>Pengadaan Barang</b>',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -300,12 +300,19 @@ return [
             'text' => 'Pengajuan Barang Masuk',
             'url'  => 'pengadaanbarang/permintaan',
             'icon' => 'fas fa-share',
+
         ],
         [
         'text' => 'Persetujuan Barang Masuk',
         'url'  => 'pengadaanbarang/persetujuanbarangmasuk',
         'icon' => 'fas fa-check',
         'role' => 'superadmin|admin',
+        ],
+        [
+            'text' => 'Cetak Laporan',
+            'url'  => 'pengadaanbarang/cetak-laporan',
+            'icon' => 'fas fa-file',
+            'role' => 'admin',
         ],
     ],
 

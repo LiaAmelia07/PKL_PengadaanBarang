@@ -16,7 +16,6 @@
 <div class="card col-md-12">
   <h2 class="card-header">Data Barang
       <a href="{{ route('barang.create') }}" class="btn btn-primary float-right col-sm-2 ml-3"><span class="fa fa-plus">&nbsp;</span> tambah</a>
-      <a href="/pengadaanbarang/cetak-barang" class="btn btn-primary float-right col-sm-2 ml-3"><span class="fa fa-file">&nbsp;</span> Convert PDF</a>
       <button onclick = "window.print()" class = "btn btn-primary float-right col-sm-2 ml-3"><span class = "fa fa-print">&nbsp;</span> Print</button>
 </h2>
   <div class="card-body">

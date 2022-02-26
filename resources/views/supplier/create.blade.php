@@ -27,7 +27,7 @@
                 </div>
                 <div class="form-group">
                     <label>No Telepon</label>
-                    <input type="text" name="no_telepon" class="form-control" placeholder="No Telepon">
+                    <input type="number" name="no_telepon" class="form-control" placeholder="No Telepon">
                 </div>
                 <div class="form-group">
                     <label>Alamat</label>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="form-group">
                     <label>Harga</label>
-                    <input type="text" name="harga" class="form-control" placeholder="Harga">
+                    <input type="number" name="harga" class="form-control" placeholder="Harga">
                 </div>
                 <div class="form-group">
                     <label>Keterangan</label>
@@ -56,5 +56,5 @@
 @stop
 
  @section('js')
- 
+
 @stop

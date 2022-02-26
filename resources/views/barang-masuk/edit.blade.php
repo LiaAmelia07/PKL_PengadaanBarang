@@ -14,64 +14,103 @@
 
 <div class="col-sm-1"></div>
 <div class="card col-md-10">
-  <h2 class="card-header">Barang Masuk
-    <a href="{{ route('barang-masuk.index') }}" class="btn btn-default float-right col-sm-2" enctype="multipart/form-data"><span class="fa fa-arrow-left">&nbsp;</span> Kembali</a>
+  <h2 class="card-header">Edit Barang Masuk
+    <a href="{{ route('barang-masuk.index') }}" class="btn btn-default float-right col-sm-2"><span class="fa fa-arrow-left">&nbsp;</span> Kembali</a>
 </h2>
   <div class="card-body">
     <div class="col-md-12">
-        <form role="form" action="{{ route('barang-masuk.update', $masuk->id) }}" method="post" enctype="multipart/form-data">
+        <form role="form" action="{{ route('barang-masuk.update', $masuk->id) }}" method="post">
             @csrf
             @method('put')
                 <div class="form-group">
-                    <label>Kode Barang Kasuk</label>
-                    <input value="{{$masuk->kode_barang_masuk}}" class="form-control boxed" placeholder="Kode" required="required" name="kode_barang_masuk" type="text" value="{{ $kode }}" id="kode" readonly>
+                    <label>Kode Barang Masuk</label>
+                    <input class="form-control boxed" placeholder="Kode" required="required" name="kode_barang_masuk" type="text" value="{{ $masuk->kode_barang_masuk }}" id="kode" readonly>
                 </div>
                 <div class="form-group">
-                    <label>Tanggal</label>
-                    <input value="{{ $masuk->tanggal_masuk }}" type="date" name="tanggal_masuk" class="form-control">
+                    <label>Kode Pengajuan</label>
+                    <select name="pengajuan_id" value="{{ $masuk->kode_pengajuan }}" class="form-control">
+
+                            @foreach($pengajuan as $data)
+                                @if ($data->status == 1)
+                                    <option value="{{$data->id}}">{{$data->kode_pengajuan}}</option>
+                                @endif
+                            @endforeach
+
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label>supplier</label>
-                    <select value="{{ $masuk->supplier_id }}" name="supplier_id" class="form-control">
+                    <label>Tanggal Masuk</label>
+                    <input type="date" value="{{ $masuk->tanggal_masuk }}" name=tanggal_masuk class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Supplier</label>
+                    <select name="supplier_id" value="{{ $masuk->supplier_id }}" class="form-control">
+
                             @foreach($supplier as $data)
                                 <option value="{{$data->id}}">{{$data->nama_supplier}}</option>
                             @endforeach
+
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Nama Barang Masuk</label>
-                    <select value="{{ $masuk->barang_id }}" name="barang_id" class="form-control">
+                    <label>Barang</label>
+                    <select name="barang_id" value="{{ $masuk->barang_id }}" class="form-control">
+
                             @foreach($barang as $data)
-                                <option value="{{$data->id}}">{{$data->nama}}</option>
+                                <option value="{{$data->id}}">{{$data->kode_barang}} | {{$data->nama}}</option>
                             @endforeach
+
                     </select>
                 </div>
+
                 <div class="form-group">
                     <label>Qty</label>
-                    <input value="{{ $masuk->qty }}" type="text" name="qty" class="form-control" placeholder="Qty">
+                    <input type="number" value="{{ $masuk->qty }}" name="qty" class="form-control" placeholder="Masukan dengan angka">
                 </div>
+
                 <div class="form-group">
-                    <label>Harga</label>
-                     <select value="{{ $masuk->harga }}" name="harga" class="form-control">
+                    <label>Harga Barang</label>
+                    <select name="harga" value="{{ $masuk->harga }}" class="form-control">
+
                             @foreach($supplier as $data)
                                 <option value="{{$data->harga}}"> {{$data->nama_supplier}} | {{$data->ket}} | Rp.{{$data->harga}}</option>
                             @endforeach
+
                     </select>
                 </div>
-                 <div class="form-group">
-                    <label>Satuan</label>
-                    <select value="{{ $masuk->satuan_id }}" name="satuan_id" class="form-control">
+
+                <div class="form-group">
+                    <label>Estimasi Harga</label>
+                    <select name="perkiraan_biaya" value={{ $masuk->perkiraan_biaya }} class="form-control">
+
+                            @foreach($pengajuan as $data)
+                                @if ($data->status == 1)
+                                <option value="{{$data->perkiraan_biaya}}">{{$data->kode_pengajuan}} | Rp.{{$data->perkiraan_biaya}}</option>
+                                @endif
+                            @endforeach
+
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Satuan Barang</label>
+                    <select name="satuan_id" value="{{ $masuk->satuan_id }}" class="form-control">
+
                             @foreach($satuan as $data)
                                 <option value="{{$data->id}}">{{$data->nama_satuan}}</option>
                             @endforeach
+
                     </select>
                 </div>
+
                 <div class="form-group">
                     <label>Penerima</label>
-                    <select value="{{ $masuk->user_id }}" name="user_id" class="form-control">
+                    <select name="user_id" value="{{ $masuk->user_id }}" class="form-control">
+
                             @foreach($user as $data)
                                 <option value="{{$data->id}}">{{$data->name}}</option>
                             @endforeach
+
                     </select>
                 </div>
                 <div class="form-group">

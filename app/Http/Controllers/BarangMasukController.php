@@ -70,10 +70,6 @@ class BarangMasukController extends Controller
         $masuk->user_id = $request->user_id;
         $masuk->save();
 
-        $barang = Barang::findOrFail($request->barang_id);
-        $barang->qty += $request->qty;
-        $barang->save();
-
         $transaksi = new Transaksi();
         $transaksi->kode = $masuk->kode_barang_masuk;
         $transaksi->jenis = 'Barang Masuk';
@@ -85,12 +81,7 @@ class BarangMasukController extends Controller
         $transaksi->harga = $masuk->harga;
         $transaksi->pelaku = $masuk->user_id;
         $transaksi->total_biaya = $masuk->qty * $masuk->harga;
-        if($transaksi->total_biaya >= $transaksi->perkiraan_biaya){
-            $transaksi->ket = $transaksi->total_biaya - $masuk->perkiraan_biaya;
-        }
-        elseif($transaksi->total_biaya <= $transaksi->perkiraan_biaya){
-            $transaksi->ket = $masuk->perkiraan_biaya - $transaksi->total_biaya;
-        }
+
         $transaksi->save();
         return redirect()->route('barang-masuk.index');
     }
@@ -132,21 +123,15 @@ class BarangMasukController extends Controller
      * @param  \App\Models\BarangMasuk  $barangMasuk
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
-        $validated = $request->validate([
-            'pengajuan_id' => 'required',
-            'tanggal_masuk' => 'required',
-            'supplier_id' => 'required',
-            'barang_id' => 'required',
-            'qty' => 'required',
-            'satuan_id' => 'required',
-            'perkiraan_biaya' => 'required',
-            'harga' => 'required',
-            'user_id' => 'required',
-        ]);
+        //memanggil data barang masuk yang belum di edit untuk menghitung stok barang ketika di edit
+        $old = BarangMasuk::findOrFail($id);
 
+        //mulai edit barang masuk
         $masuk = BarangMasuk::findOrFail($id);
+        $barang = Barang::where('id', $masuk->barang_id)->first();
+        //mengedit data barang masuk
         $masuk->kode_barang_masuk = $request->kode_barang_masuk;
         $masuk->pengajuan_id = $request->pengajuan_id;
         $masuk->tanggal_masuk = $request->tanggal_masuk;
@@ -157,10 +142,13 @@ class BarangMasukController extends Controller
         $masuk->perkiraan_biaya = $request->perkiraan_biaya;
         $masuk->harga = $request->harga;
         $masuk->user_id = $request->user_id;
+        //menghitung stok barang yang sudah di edit stok nya
+        $barang->qty -= $old->qty;
+        $barang->qty += $request->qty;
+        $barang->save();
         $masuk->save();
 
         return redirect()->route('barang-masuk.index');
-
     }
 
     /**

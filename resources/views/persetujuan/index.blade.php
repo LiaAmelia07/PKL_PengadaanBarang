@@ -22,7 +22,7 @@
             @csrf
                 <div class="form-group">
                     <label>Kode Pengajuan</label>
-                    <input type="text" name="kode_pengajuan" class="form-control" placeholder="Kode Pengajuan">                    
+                    <input type="text" name="kode_pengajuan" class="form-control" placeholder="Kode Pengajuan">
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary" type="submit">Simpan</button>
@@ -38,5 +38,5 @@
 @stop
 
  @section('js')
- 
+
 @stop

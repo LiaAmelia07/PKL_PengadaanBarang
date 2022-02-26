@@ -27,7 +27,7 @@
                 </div>
                 <div class="form-group">
                     <label>Kode Pengajuan</label>
-                    <select name="pengajuan_id" class="form-control">
+                    <select name="pengajuan_id" class="form-control" required="required">
 
                             @foreach($pengajuan as $data)
                                 @if ($data->status == 1)
@@ -39,7 +39,7 @@
                 </div>
                 <div class="form-group">
                     <label>Tanggal Masuk</label>
-                    <input type="date" name=tanggal_masuk class="form-control">
+                    <input type="date" name=tanggal_masuk class="form-control" required="required">
                 </div>
                 <div class="form-group">
                     <label>Supplier</label>
@@ -53,7 +53,7 @@
                 </div>
                 <div class="form-group">
                     <label>Barang</label>
-                    <select name="barang_id" class="form-control">
+                    <select name="barang_id" class="form-control" required="required">
 
                             @foreach($barang as $data)
                                 <option value="{{$data->id}}">{{$data->kode_barang}} | {{$data->nama}}</option>
@@ -64,12 +64,12 @@
 
                 <div class="form-group">
                     <label>Qty</label>
-                    <input type="number" name="qty" class="form-control" placeholder="Jumlah Masuk">
+                    <input type="number" name="qty" class="form-control" placeholder="Jumlah Masuk" required="required">
                 </div>
 
                 <div class="form-group">
                     <label>Harga Barang</label>
-                    <select name="harga" class="form-control">
+                    <select name="harga" class="form-control" required="required">
 
                             @foreach($supplier as $data)
                                 <option value="{{$data->harga}}"> {{$data->nama_supplier}} | {{$data->ket}} | Rp.{{$data->harga}}</option>
@@ -80,7 +80,7 @@
 
                 <div class="form-group">
                     <label>Estimasi Harga</label>
-                    <select name="perkiraan_biaya" class="form-control">
+                    <select name="perkiraan_biaya" class="form-control" required="required">
 
                             @foreach($pengajuan as $data)
                                 @if ($data->status == 1)
@@ -93,7 +93,7 @@
 
                 <div class="form-group">
                     <label>Satuan Barang</label>
-                    <select name="satuan_id" class="form-control">
+                    <select name="satuan_id" class="form-control" required="required">
 
                             @foreach($satuan as $data)
                                 <option value="{{$data->id}}">{{$data->nama_satuan}}</option>
@@ -104,7 +104,7 @@
 
                 <div class="form-group">
                     <label>Penerima</label>
-                    <select name="user_id" class="form-control">
+                    <select name="user_id" class="form-control" >
 
                             @foreach($user as $data)
                                 <option value="{{$data->id}}">{{$data->name}}</option>

@@ -40,7 +40,7 @@
                 </div>
                 <div class="form-group">
                     <label>Qty</label>
-                    <input value="{{ $keluar->qty }}" type="text" name="qty" class="form-control" placeholder="Qty">
+                    <input value="{{ $keluar->qty }}" type="number" name="qty" class="form-control" placeholder="Masukan dengan angka">
                 </div>
                 <div class="form-group">
                     <label>Pengeluar</label>
