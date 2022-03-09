@@ -10,6 +10,7 @@ use App\Models\Transaksi;
 use App\Models\Pengajuan;
 use App\Models\Satuan;
 use PDF;
+use Alert;
 use Illuminate\Http\Request;
 
 class BarangMasukController extends Controller
@@ -56,6 +57,18 @@ class BarangMasukController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'kode_barang_masuk' => 'required',
+            'pengajuan_id' => 'required',
+            'tanggal_masuk' => 'required',
+            'supplier_id' => 'required',
+            'barang_id' => 'required',
+            'user_id' => 'required',
+            'satuan_id' => 'required',
+            'perkiraan_biaya' => 'required',
+            'harga' => 'required',
+            'qty' => 'required|numeric',
+        ]);
 
         $masuk = new BarangMasuk();
         $masuk->kode_barang_masuk = $request->kode_barang_masuk;
@@ -70,6 +83,14 @@ class BarangMasukController extends Controller
         $masuk->user_id = $request->user_id;
         $masuk->save();
 
+        $barang = Barang::findOrFail($request->barang_id);
+        $barang->qty += $request->qty;
+        $barang->save();
+
+        $pengajuan = Pengajuan::findOrfail($request->pengajuan_id);
+        $pengajuan->status = 2;
+        $pengajuan->save();
+
         $transaksi = new Transaksi();
         $transaksi->kode = $masuk->kode_barang_masuk;
         $transaksi->jenis = 'Barang Masuk';
@@ -81,8 +102,19 @@ class BarangMasukController extends Controller
         $transaksi->harga = $masuk->harga;
         $transaksi->pelaku = $masuk->user_id;
         $transaksi->total_biaya = $masuk->qty * $masuk->harga;
-
+        if($transaksi->total_biaya >= $transaksi->perkiraan_biaya){
+            $transaksi->ket = $transaksi->total_biaya - $masuk->perkiraan_biaya;
+        }
+        elseif($transaksi->total_biaya <= $transaksi->perkiraan_biaya){
+            $transaksi->ket = $masuk->perkiraan_biaya - $transaksi->total_biaya;
+        }
         $transaksi->save();
+        // //rubah status pengajuan menjadi 2
+        // $pengajuan = Pengajuan::findOrFail($request->pengajuan_id);
+        // $pengajuan->kode_pengajuan = 2;
+        // $pengajuan->save();
+
+        Alert::success('Success', 'Data saved successfully');
         return redirect()->route('barang-masuk.index');
     }
 
@@ -125,6 +157,18 @@ class BarangMasukController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validated = $request->validate([
+            'kode_barang_masuk' => 'required',
+            'pengajuan_id' => 'required',
+            'tanggal_masuk' => 'required',
+            'supplier_id' => 'required',
+            'barang_id' => 'required',
+            'user_id' => 'required',
+            'satuan_id' => 'required',
+            'perkiraan_biaya' => 'required',
+            'harga' => 'required',
+            'qty' => 'required|numeric',
+        ]);
         //memanggil data barang masuk yang belum di edit untuk menghitung stok barang ketika di edit
         $old = BarangMasuk::findOrFail($id);
 
@@ -147,6 +191,8 @@ class BarangMasukController extends Controller
         $barang->qty += $request->qty;
         $barang->save();
         $masuk->save();
+
+        Alert::success('Success', 'Data changed successfully');
 
         return redirect()->route('barang-masuk.index');
     }

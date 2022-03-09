@@ -48,7 +48,7 @@ return [
     */
 
     'logo' => '<b>Pengadaan Barang</b>',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img' => 'vendor/adminlte/dist/img/logo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -263,11 +263,13 @@ return [
                     'text' => 'Satuan Barang',
                     'url'  => 'pengadaanbarang/satuan',
                     'icon' => 'fas fa-minus',
+                    'role' => 'admin'
                 ],
                 [
                     'text' => 'Kategori Barang',
                     'url'  => 'pengadaanbarang/kategori',
                     'icon' => 'fas fa-minus',
+                    'role' => 'admin'
                 ],
                 [
                     'text' => 'Data Barang',
@@ -275,8 +277,10 @@ return [
                     'icon' => 'fas fa-minus',
                 ],
             ],
-            'role' => 'admin'
+            'role' => 'admin|user'
+
         ],
+
         [
             'text' => 'Barang Masuk',
             'url'  => 'pengadaanbarang/barang-masuk',
@@ -306,13 +310,19 @@ return [
         'text' => 'Persetujuan Barang Masuk',
         'url'  => 'pengadaanbarang/persetujuanbarangmasuk',
         'icon' => 'fas fa-check',
-        'role' => 'superadmin|admin',
+        'role' => 'superadmin',
         ],
         [
             'text' => 'Cetak Laporan',
             'url'  => 'pengadaanbarang/cetak-laporan',
             'icon' => 'fas fa-file',
             'role' => 'admin',
+        ],
+        [
+            'text' => 'User Management',
+            'url'  => 'pengadaanbarang/user-management',
+            'icon' => 'far fa-user',
+            'role' => 'superadmin',
         ],
     ],
 

@@ -5,11 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use DB;
-
 class BarangKeluar extends Model
 {
     use HasFactory;
-    protected $fillable = 
+    protected $fillable =
     [
         'kode_barang_keluar',
         'tanggal_keluar',
@@ -18,6 +17,7 @@ class BarangKeluar extends Model
         'user_id',
         'ket',
     ];
+
     public function barang()
     {
         return $this->belongsTo(Barang::class, 'barang_id');

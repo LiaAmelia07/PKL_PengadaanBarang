@@ -24,8 +24,15 @@
             @method('put')
                 <div class="form-group">
                     <label>Nama Satuan</label>
-                    <input value="{{ $satuan->nama_satuan }}" type="text" name="nama_satuan" class="form-control" placeholder="Nama Satuan">
+                    <input type="text" name="nama_satuan" class="form-control @error('nama_satuan')
+                    is-invalid @enderror" placeholder="Nama Satuan" value="{{ $satuan->nama_satuan }}">
+                    @error('nama_satuan')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
+
                 <div class="form-group">
                     <button class="btn btn-primary" type="submit">Simpan</button>
                     <button class="btn btn-default" type="reset">Batal</button>
@@ -41,5 +48,5 @@
 @stop
 
  @section('js')
- 
+
 @stop

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Satuan;
 use Illuminate\Http\Request;
-
+use Alert;
 class SatuanController extends Controller
 {
     /**
@@ -42,6 +42,7 @@ class SatuanController extends Controller
         $satuan = new Satuan;
         $satuan->nama_satuan = $request->nama_satuan;
         $satuan->save();
+        Alert::success('Success', 'Data saved successfully');
         return redirect()->route('satuan.index');
     }
 
@@ -84,6 +85,7 @@ class SatuanController extends Controller
         $satuan = Satuan::findOrFail($id);
         $satuan->nama_satuan = $request->nama_satuan;
         $satuan->save();
+        Alert::success('Success', 'Data changed successfully');
         return redirect()->route('satuan.index');
     }
 
@@ -95,7 +97,12 @@ class SatuanController extends Controller
      */
     public function destroy($id)
     {
-        $satuan = Satuan::findOrFail($id);
+        if (!Satuan::destroy($id)) {
+            return redirect()->back();
+        }
+        Alert::success('Success', 'Data deleted successfully');
+        return redirect()->route('satuan.index');
+
         $satuan->delete();
         return redirect()->route('satuan.index');
     }

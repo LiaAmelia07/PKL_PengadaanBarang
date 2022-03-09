@@ -25,10 +25,18 @@
                     <label>Kode Barang</label>
                     <input class="form-control boxed" placeholder="Kode" required="required" name="kode_barang" type="text" value="{{ $kode }}" id="kode" readonly>
                 </div>
+
                 <div class="form-group">
                     <label>Nama Barang</label>
-                    <input type="text" name="nama" class="form-control" placeholder="Nama Barang">
+                    <input type="text" name="nama" class="form-control @error('nama')
+                    is-invalid @enderror" placeholder="Masukan nama Barang" value="{{ old('nama') }}">
+                    @error('nama')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
+
                 <div class="form-group">
                     <label>Kategori Barang</label>
                     <select name="kategori_id" class="form-control">
@@ -39,6 +47,7 @@
 
                     </select>
                 </div>
+
                 <div class="form-group">
                     <label>Satuan Barang</label>
                     <select name="satuan_id" class="form-control">
@@ -49,14 +58,29 @@
 
                     </select>
                 </div>
+
                 <div class="form-group">
                     <label>Tanggal</label>
-                    <input type="date" name="tanggal" class="form-control">
+                    <input type="date" name="tanggal" class="form-control @error('tanggal')
+                    is-invalid @enderror" placeholder="Tanggal" value="{{ old('tanggal') }}">
+                    @error('tanggal')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
+
                 <div class="form-group">
                     <label>Keterangan</label>
-                    <input type="text" name="ket" class="form-control" placeholder="Keterangan">
+                    <input type="text" name="ket" class="form-control @error('ket')
+                    is-invalid @enderror" placeholder="Keterangan" value="{{ old('ket') }}">
+                    @error('ket')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
+
                 <div class="form-group">
                     <button class="btn btn-primary" type="submit">Simpan</button>
                     <button class="btn btn-default" type="reset">Batal</button>

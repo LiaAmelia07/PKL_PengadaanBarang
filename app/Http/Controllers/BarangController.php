@@ -6,6 +6,7 @@ use App\Models\Barang;
 use App\Models\Satuan;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
+use Alert;
 
 class BarangController extends Controller
 {
@@ -56,6 +57,7 @@ class BarangController extends Controller
         $barang->satuan_id = $request->satuan_id;
         $barang->ket = $request->ket;
         $barang->save();
+        Alert::success('Success', 'Data saved successfully');
         return redirect()->route('barang.index');
     }
 
@@ -110,6 +112,7 @@ class BarangController extends Controller
         $barang->satuan_id = $request->satuan_id;
         $barang->ket = $request->ket;
         $barang->save();
+        Alert::success('Success', 'Data changed successfully');
         return redirect()->route('barang.index');
     }
 

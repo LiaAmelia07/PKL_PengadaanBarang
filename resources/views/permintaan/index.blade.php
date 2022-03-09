@@ -44,11 +44,15 @@
                         <td class="text-center">Rp.{{$data->perkiraan_biaya}}</td>
                         @if ($data->status == 1)
                                 <td>
-                                    <div class="p-2 mb-2 bg-success text-white">Sudah Di Verifikasi</div>
+                                    <div class="p-2 mb-2 bg-success text-white">Sudah Disetujui</div>
                                 </td>
+                                @elseif($data->status ==2)
+                            <td>
+                                <div class="p-2 mb-2 bg-primary text-white">Sudah Transaksi</div>
+                            </td>
                             @else
                                 <td>
-                                    <div class="p-3 mb-2 bg-danger text-white">Belum Di Verifikasi</div>
+                                    <div class="p-3 mb-2 bg-danger text-white">Menunggu Persetujuan</div>
                                 </td>
                             @endif
                         <td class="text-center">
@@ -75,5 +79,25 @@
 @stop
 
  @section('js')
-
+    <script src="{{ asset('js/sweetalert2.js') }}"></script>
+    <script>
+        $(".delete-confirm").click(function(event) {
+            var form = $(this).closest("form");
+            var name = $(this).data("name");
+            event.preventDefault();
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    </script>
 @stop

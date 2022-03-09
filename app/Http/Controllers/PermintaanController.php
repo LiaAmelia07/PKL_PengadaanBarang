@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pengajuan;
 use App\Models\Barang;
 use Illuminate\Http\Request;
-
+use Alert;
 class PermintaanController extends Controller
 {
     /**
@@ -52,6 +52,7 @@ class PermintaanController extends Controller
         $pengajuan->qty = $request->qty;
         $pengajuan->perkiraan_biaya = $request->perkiraan_biaya;
         $pengajuan->save();
+        Alert::success('Success', 'Data saved successfully');
         return redirect()->route('permintaan.index');
     }
 
@@ -92,8 +93,8 @@ class PermintaanController extends Controller
         $validated = $request->validate([
             'tanggal' => 'required',
             'barang_id' => 'required',
-            'qty' => 'required',
-            'perkiraan_biaya' => 'required',
+            'qty' => 'required|numeric',
+            'perkiraan_biaya' => 'required|numeric',
         ]);
         $pengajuan = Pengajuan::findOrFail($id);
         $pengajuan->tanggal = $request->tanggal;
@@ -102,6 +103,7 @@ class PermintaanController extends Controller
         $pengajuan->qty = $request->qty;
         $pengajuan->perkiraan_biaya = $request->perkiraan_biaya;
         $pengajuan->save();
+        Alert::success('Success', 'Data changed successfully');
         return redirect()->route('permintaan.index');
     }
 
@@ -113,8 +115,10 @@ class PermintaanController extends Controller
      */
     public function destroy($id)
     {
-        $permintaan = Pengajuan::findOrFail($id);
-        $permintaan->delete();
+        if (!Pengajuan::destroy($id)) {
+            return redirect()->back();
+        }
+        Alert::success('Success', 'Data deleted successfully');
         return redirect()->route('permintaan.index');
     }
 }

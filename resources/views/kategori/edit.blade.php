@@ -24,12 +24,26 @@
             @method('put')
                 <div class="form-group">
                     <label>Kategori</label>
-                    <input value="{{ $kategori->kategori }}" type="text" name="kategori" class="form-control" placeholder="Kategori">
+                    <input type="text" name="kategori" class="form-control @error('kategori')
+                    is-invalid @enderror" placeholder="Kategori" value="{{ $kategori->kategori }}">
+                    @error('kategori')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
+
                 <div class="form-group">
                     <label>Ket</label>
-                    <input value="{{ $kategori->ket }}" type="text" name="ket" class="form-control" placeholder="Keterangan">
+                    <input type="text" name="ket" class="form-control @error('ket')
+                    is-invalid @enderror" placeholder="Keterangan" value="{{ $kategori->ket }}">
+                    @error('ket')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
+
                 <div class="form-group">
                     <button class="btn btn-primary" type="submit">Simpan</button>
                     <button class="btn btn-default" type="reset">Batal</button>
@@ -45,5 +59,5 @@
 @stop
 
  @section('js')
- 
+
 @stop

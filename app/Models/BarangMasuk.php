@@ -5,11 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use DB;
-
 class BarangMasuk extends Model
 {
     use HasFactory;
-    protected $fillable = 
+    protected $fillable =
     [
         'kode_barang_masuk',
         'tanggal_masuk',
@@ -46,7 +45,7 @@ class BarangMasuk extends Model
     {
         return $this->belongsTo(Pengajuan::class, 'pengajuan_id');
     }
-    
+
     public static function kode()
     {
         $kode = DB::table('barang_masuks')->max('kode_barang_masuk');

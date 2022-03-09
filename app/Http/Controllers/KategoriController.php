@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kategori;
 use Illuminate\Http\Request;
+use Alert;
 
 class KategoriController extends Controller
 {
@@ -25,7 +26,7 @@ class KategoriController extends Controller
      */
     public function create()
     {
-        return view('kategori.create');        
+        return view('kategori.create');
     }
 
     /**
@@ -44,6 +45,7 @@ class KategoriController extends Controller
         $kategori->kategori = $request->kategori;
         $kategori->ket = $request->ket;
         $kategori->save();
+        Alert::success('Success', 'Data saved successfully');
         return redirect()->route('kategori.index');
     }
 
@@ -88,6 +90,7 @@ class KategoriController extends Controller
         $kategori->kategori = $request->kategori;
         $kategori->ket = $request->ket;
         $kategori->save();
+        Alert::success('Success', 'Data changed successfully');
         return redirect()->route('kategori.index');
     }
 
@@ -99,7 +102,12 @@ class KategoriController extends Controller
      */
     public function destroy($id)
     {
-        $kategori = Kategori::findOrFail($id);
+        if (!Kategori::destroy($id)) {
+            return redirect()->back();
+        }
+        Alert::success('Success', 'Data deleted successfully');
+        return redirect()->route('kategori.index');
+
         $kategori->delete();
         return redirect()->route('kategori.index');
     }

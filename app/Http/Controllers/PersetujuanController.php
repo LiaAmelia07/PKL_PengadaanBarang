@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pengajuan;
-
+use Alert;
 class PersetujuanController extends Controller
 {
     public function index(){
@@ -19,10 +19,10 @@ class PersetujuanController extends Controller
         $cek = Pengajuan::where('kode_pengajuan', $kode_pengajuan)->count();
         if($cek > 0){
             Pengajuan::where('kode_pengajuan', $kode_pengajuan)->update(['status'=>1]);
-            $request->session()->flash('sukses', 'Berhasil!');
+            Alert::success('Success', 'Data saved successfully');
         }
         else{
-            $request->session()->flash('gagal', 'Gagal! Kode Pengajuan Tidak Ditemukan!');
+            Alert::error('Failed', 'Failed to do approval!');
         }
         return redirect()->back();
     }

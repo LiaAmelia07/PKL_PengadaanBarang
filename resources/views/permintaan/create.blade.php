@@ -23,12 +23,20 @@
             @csrf
                 <div class="form-group">
                     <label>Tanggal Pengajuan</label>
-                    <input type="date" name="tanggal" class="form-control">
+                    <input type="date" name="tanggal" class="form-control @error('tanggal')
+                    is-invalid @enderror" placeholder="Tanggal" value="{{ old('tanggal') }}">
+                    @error('tanggal')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
+
                 <div class="form-group">
                     <label>Kode Pengajuan</label>
                     <input class="form-control boxed" placeholder="Kode" required="required" name="kode_pengajuan" type="text" value="{{ $kode }}" id="kode" readonly>
                 </div>
+
                 <div class="form-group">
                     <label>Barang</label>
                     <select name="barang_id" class="form-control">
@@ -39,14 +47,29 @@
 
                     </select>
                 </div>
+
                 <div class="form-group">
                     <label>Qty</label>
-                    <input type="number" name="qty" class="form-control" placeholder="Jumlah Barang">
+                    <input type="number" name="qty" class="form-control @error('qty')
+                    is-invalid @enderror" placeholder="Masukan Qty" value="{{ old('qty') }}">
+                    @error('qty')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
+
                 <div class="form-group">
                     <label>Perkiraan Biaya</label>
-                    <input type="number" name="perkiraan_biaya" class="form-control" placeholder="Perkiraan Biaya">
+                    <input type="number" name="perkiraan_biaya" class="form-control @error('perkiraan_biaya')
+                    is-invalid @enderror" placeholder="Perkiraan Biaya" value="{{ old('perkiraan_biaya') }}">
+                    @error('perkiraan_biaya')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
+
                 <div class="form-group">
                     <button class="btn btn-primary" type="submit">Simpan</button>
                     <button class="btn btn-default" type="reset">Batal</button>

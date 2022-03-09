@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Transaksi;
 use App\Models\Barang;
 use Illuminate\Http\Request;
-
+use Alert;
 class TransaksiController extends Controller
 {
     /**
@@ -83,8 +83,10 @@ class TransaksiController extends Controller
      */
     public function destroy($id)
     {
-        $transaksi = Transaksi::findOrFail($id);
-        $transaksi->delete();
+        if (!Transaksi::destroy($id)) {
+            return redirect()->back();
+        }
+        Alert::success('Success', 'Data deleted successfully');
         return redirect()->route('transaksi.index');
     }
     public function cetaktransaksi()

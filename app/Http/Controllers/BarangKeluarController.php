@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Transaksi;
 use Session;
 use Illuminate\Http\Request;
+use Alert;
 
 class BarangKeluarController extends Controller
 {
@@ -67,7 +68,7 @@ class BarangKeluarController extends Controller
             $barang->qty -= $request->qty;
             $barang->save();
         }
-
+        Alert::success('Success', 'Data saved successfully');
         return redirect()->route('barang-keluar.index');
 
     }
@@ -128,9 +129,12 @@ class BarangKeluarController extends Controller
         $keluar->qty = $request->qty;
         $keluar->user_id = $request->user_id;
         $keluar->ket = $request->ket;
-
+        //menghitung stok barang yang sudah di edit stok nya
+        $barang->qty += $old->qty;
+        $barang->qty -= $request->qty;
+        $barang->save();
         $keluar->save();
-
+        Alert::success('Success', 'Data changed successfully');
         return redirect()->route('barang-keluar.index');
     }
 

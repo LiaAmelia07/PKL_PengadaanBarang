@@ -12,6 +12,8 @@ use App\Http\Controllers\PermintaanController;
 use App\Http\Controllers\PersetujuanController;
 use App\Http\Controllers\PersetujuanBarangController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -69,7 +71,7 @@ Route::group(['prefix' => 'pengadaanbarang', 'middleware' => ['auth']], function
     ->middleware('role:admin');;
 
     Route::resource('barang', BarangController::class)
-    ->middleware('role:admin|superadmin');
+    ->middleware('role:admin|superadmin|user');
 
     Route::resource('supplier', SupplierController::class)
     ->middleware('role:admin');
@@ -98,19 +100,6 @@ Route::group(['prefix' => 'pengadaanbarang', 'middleware' => ['auth']], function
     Route::post('persetujuanbarangmasuk', [PersetujuanController::class, 'persetujuan'])
     ->middleware(['role:superadmin|admin']);
 
-    //Cetak
-    // Route::get('cetak-barang-masuk', [BarangMasukController::class, 'cetakbm'])
-    // ->middleware(['role:admin|user|superadmin']);
-
-    // Route::get('cetak-barang-keluar', [BarangKeluarController::class, 'cetakbk'])
-    // ->middleware(['role:admin|user|superadmin']);
-
-    // Route::get('cetak-barang', [BarangController::class, 'cetakbrg'])
-    // ->middleware(['role:admin|user|superadmin']);
-
-    // Route::get('cetak-transaksi', [TransaksiController::class, 'cetaktransaksi'])
-    // ->middleware(['role:admin|user|superadmin']);
-
      //Cetak Laporan Sesuai tanggal
      Route::get('cetak-laporan', [ReportController::class, 'index'])
      ->middleware(['role:admin']);
@@ -118,4 +107,6 @@ Route::group(['prefix' => 'pengadaanbarang', 'middleware' => ['auth']], function
      Route::post('cetak-laporan', [ReportController::class, 'laporan'])
      ->middleware(['role:admin']);
 
+     //user management
+    Route::resource('user-management', UserController::class)->middleware(['role:superadmin']);
 });

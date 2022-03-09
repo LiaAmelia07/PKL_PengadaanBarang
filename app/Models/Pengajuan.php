@@ -5,17 +5,29 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use Alert;
 
 class Pengajuan extends Model
 {
     use HasFactory;
-    protected $fillable = 
+    protected $fillable =
     [
         'kode_pengajuan',
         'barang_id',
         'qty',
         'perkiraan_biaya',
     ];
+    public static function boot()
+    {
+        parent::boot();
+        self::deleting(function ($parent) {
+            if ($parent->barang->count() > 0) {
+                Alert::error('Failed', 'Child data has not been deleted');
+                return false;
+            }
+        });
+    }
+
     public function barangmasuk()
     {
         return $this->hasMany(BarangMasuk::class,'pengajuan_id');

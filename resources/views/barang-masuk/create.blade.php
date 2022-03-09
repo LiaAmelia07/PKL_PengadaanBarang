@@ -39,18 +39,27 @@
                 </div>
                 <div class="form-group">
                     <label>Tanggal Masuk</label>
-                    <input type="date" name=tanggal_masuk class="form-control" required="required">
+                    <input type="date" name="tanggal_masuk" class="form-control @error('tanggal_masuk')
+                    is-invalid @enderror" placeholder="Tanggal masuk" value="{{ old('tanggal_masuk') }}">
+                    @error('tanggal_masuk')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+
                 </div>
                 <div class="form-group">
                     <label>Supplier</label>
                     <select name="supplier_id" class="form-control">
 
                             @foreach($supplier as $data)
-                                <option value="{{$data->id}}">{{$data->nama_supplier}}</option>
+                                <option value="{{$data->id}}">{{$data->nama_supplier}}| {{$data->ket}}</option>
                             @endforeach
 
                     </select>
                 </div>
+
                 <div class="form-group">
                     <label>Barang</label>
                     <select name="barang_id" class="form-control" required="required">
@@ -64,7 +73,13 @@
 
                 <div class="form-group">
                     <label>Qty</label>
-                    <input type="number" name="qty" class="form-control" placeholder="Jumlah Masuk" required="required">
+                    <input type="number" name="qty" class="form-control @error('qty')
+                    is-invalid @enderror" placeholder="Masukan Qty" value="{{ old('qty') }}">
+                    @error('qty')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
 
                 <div class="form-group">
@@ -112,6 +127,7 @@
 
                     </select>
                 </div>
+
                 <div class="form-group">
                     <button class="btn btn-primary" type="submit">Simpan</button>
                     <button class="btn btn-default" type="reset">Batal</button>

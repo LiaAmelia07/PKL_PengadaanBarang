@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Supplier;
 use Illuminate\Http\Request;
-
+use Alert;
 class SupplierController extends Controller
 {
     /**
@@ -39,9 +39,9 @@ class SupplierController extends Controller
         //validasi data
         $validated = $request->validate([
             'nama_supplier' => 'required',
-            'no_telepon' => 'required',
+            'no_telepon' => 'required|numeric',
             'alamat' => 'required',
-            'harga' => 'required',
+            'harga' => 'required|numeric',
             'ket' => 'required',
         ]);
 
@@ -52,6 +52,7 @@ class SupplierController extends Controller
         $supplier->harga = $request->harga;
         $supplier->ket = $request->ket;
         $supplier->save();
+        Alert::success('Success', 'Data saved successfully');
         return redirect()->route('supplier.index');
     }
 
@@ -103,6 +104,7 @@ class SupplierController extends Controller
         $supplier->harga = $request->harga;
         $supplier->ket = $request->ket;
         $supplier->save();
+        Alert::success('Success', 'Data changed successfully');
         return redirect()->route('supplier.index');
     }
 
@@ -114,7 +116,12 @@ class SupplierController extends Controller
      */
     public function destroy($id)
     {
-        $supplier = Supplier::findOrFail($id);
+        if (!Supplier::destroy($id)) {
+            return redirect()->back();
+        }
+        Alert::success('Success', 'Data deleted successfully');
+        return redirect()->route('supplier.index');
+
         $supplier->delete();
         return redirect()->route('supplier.index');
     }

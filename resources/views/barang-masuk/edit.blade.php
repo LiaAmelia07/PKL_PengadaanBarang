@@ -31,17 +31,25 @@
                     <select name="pengajuan_id" value="{{ $masuk->kode_pengajuan }}" class="form-control">
 
                             @foreach($pengajuan as $data)
-                                @if ($data->status == 1)
+                                @if ($data->status == 2)
                                     <option value="{{$data->id}}">{{$data->kode_pengajuan}}</option>
                                 @endif
                             @endforeach
 
                     </select>
                 </div>
+
                 <div class="form-group">
                     <label>Tanggal Masuk</label>
-                    <input type="date" value="{{ $masuk->tanggal_masuk }}" name=tanggal_masuk class="form-control">
+                    <input type="date" name="tanggal_masuk" class="form-control @error('tanggal_masuk')
+                    is-invalid @enderror" placeholder="Tanggal masuk" value="{{ $masuk->tanggal_masuk }}">
+                    @error('tanggal_masuk')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
+
                 <div class="form-group">
                     <label>Supplier</label>
                     <select name="supplier_id" value="{{ $masuk->supplier_id }}" class="form-control">
@@ -65,7 +73,13 @@
 
                 <div class="form-group">
                     <label>Qty</label>
-                    <input type="number" value="{{ $masuk->qty }}" name="qty" class="form-control" placeholder="Masukan dengan angka">
+                    <input type="number" name="qty" class="form-control @error('qty')
+                    is-invalid @enderror" placeholder="Masukan Qty" value="{{ $masuk->qty }}">
+                    @error('qty')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
 
                 <div class="form-group">
@@ -84,7 +98,7 @@
                     <select name="perkiraan_biaya" value={{ $masuk->perkiraan_biaya }} class="form-control">
 
                             @foreach($pengajuan as $data)
-                                @if ($data->status == 1)
+                                @if ($data->status == 2)
                                 <option value="{{$data->perkiraan_biaya}}">{{$data->kode_pengajuan}} | Rp.{{$data->perkiraan_biaya}}</option>
                                 @endif
                             @endforeach
@@ -113,6 +127,7 @@
 
                     </select>
                 </div>
+
                 <div class="form-group">
                     <button class="btn btn-primary" type="submit">Simpan</button>
                     <button class="btn btn-default" type="reset">Batal</button>

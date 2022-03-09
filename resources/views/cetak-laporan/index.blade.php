@@ -50,12 +50,26 @@
               </div><br>
                 <div class="form-group">
                     <label>Tanggal Awal</label>
-                    <input type="date" name="tanggal_awal" class="form-control" placeholder="Tanggal Awal">
+                    <input type="date" name="tanggal_awal" class="form-control @error('tanggal_awal')
+                    is-invalid @enderror" placeholder="Tanggal Awal" value="{{ old('tanggal_awal') }}">
+                    @error('tanggal_awal')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
+
                 <div class="form-group">
                     <label>Tanggal Akhir</label>
-                    <input type="date" name="tanggal_akhir" class="form-control" placeholder="Tanggal Akhir">
+                    <input type="date" name="tanggal_akhir" class="form-control @error('tanggal_akhir')
+                    is-invalid @enderror" placeholder="Tanggal Akhir" value="{{ old('tanggal_akhir') }}">
+                    @error('tanggal_akhir')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
+
                 <div class="form-group">
                     <button class="btn btn-primary" type="submit">Cetak Laporan</button>
                 </div>

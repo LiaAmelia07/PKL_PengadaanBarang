@@ -54,7 +54,7 @@
                                 @method('delete')
                                 @csrf
                                     <a href="{{route('barang-keluar.edit',$data->id)}}" class="btn btn-warning">Edit</a>
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah anda yakin menghapus')">Delete</button>
+                                    <button type="submit" class="btn btn-danger delete-confirm">Delete</button>                                </form>
                             </form>
                         </td>
                     </tr>
@@ -79,4 +79,26 @@
         $('#barang-keluar').DataTable();
     });
     </script>
+    <script src="{{ asset('js/sweetalert2.js') }}"></script>
+    <script>
+        $(".delete-confirm").click(function(event) {
+            var form = $(this).closest("form");
+            var name = $(this).data("name");
+            event.preventDefault();
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    </script>
+
 @stop

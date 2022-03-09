@@ -33,11 +33,11 @@
                             <td>{{$no++}}</td>
                             <td>{{$data->nama_satuan}}</td>
                             <td>
-                                <form class="text-center" action="{{route('satuan.destroy',$data->id)}}" method="post">
+                                <form class=" " action="{{route('satuan.destroy',$data->id)}}" method="post">
                                 @method('delete')
                                 @csrf
                                     <a href="{{route('satuan.edit',$data->id)}}" class="btn btn-warning">Edit</a>
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah anda yakin menghapus')">Delete</button>
+                                    <button type="submit" class="btn btn-danger delete-confirm">Delete</button>                                </form>
                                 </form>
                             </td>
                         </tr>
@@ -56,5 +56,25 @@
 @stop
 
  @section('js')
- 
+    <script src="{{ asset('js/sweetalert2.js') }}"></script>
+    <script>
+        $(".delete-confirm").click(function(event) {
+            var form = $(this).closest("form");
+            var name = $(this).data("name");
+            event.preventDefault();
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    </script>
 @stop

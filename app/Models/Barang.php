@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use Alert;
 
 class Barang extends Model
 {
@@ -18,6 +19,18 @@ class Barang extends Model
         'kategori_id',
         'satuan_id',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        self::deleting(function ($parent) {
+            if ($parent->barangmasuk->count() > 0) {
+                Alert::error('Failed', 'Child data has not been deleted');
+                return false;
+            }
+        });
+    }
+
     public function kategori()
     {
         return $this->belongsTo(Kategori::class, 'kategori_id');

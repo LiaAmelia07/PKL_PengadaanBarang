@@ -25,10 +25,18 @@
                     <label>ID Transaksi Barang Keluar</label>
                     <input class="form-control boxed" placeholder="Kode" required="required" name="kode_barang_keluar" type="text" value="{{ $kode }}" id="kode" readonly>
                 </div>
+
                 <div class="form-group">
                     <label>Tanggal Keluar</label>
-                    <input type="date" name="tanggal_keluar" class="form-control">
+                    <input type="date" name="tanggal_keluar" class="form-control @error('tanggal_keluar')
+                    is-invalid @enderror" placeholder="Tanggal Keluar" value="{{ old('tanggal_keluar') }}">
+                    @error('tanggal_keluar')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
+
                 <div class="form-group">
                     <label>Barang</label>
                     <select name="barang_id" class="form-control">
@@ -39,14 +47,18 @@
 
                     </select>
                 </div>
-                {{-- <div class="form-group">
-                    <label>Stok</label>
-                    <input type="text" name="" class="form-control" placeholder="0" readonly>
-                </div> --}}
+
                 <div class="form-group">
                     <label>Qty</label>
-                    <input type="number" name="qty" class="form-control" placeholder="Jumlah Keluar">
+                    <input type="number" name="qty" class="form-control @error('qty')
+                    is-invalid @enderror" placeholder="Masukan Qty" value="{{ old('qty') }}">
+                    @error('qty')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
+
                 <div class="form-group">
                     <label>Pengeluar</label>
                     <select name="user_id" class="form-control">
@@ -57,14 +69,18 @@
 
                     </select>
                 </div>
+
                 <div class="form-group">
                     <label>Keterangan</label>
-                    <input type="text" name="ket" class="form-control" placeholder="Keterangan Barang">
+                    <input type="text" name="ket" class="form-control @error('ket')
+                    is-invalid @enderror" placeholder="Keterangan" value="{{ old('ket') }}">
+                    @error('ket')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
-                {{-- <div class="form-group">
-                    <label>Total Stok</label>
-                    <input type="text" name="" class="form-control" placeholder="0" readonly>
-                </div> --}}
+
                 <div class="form-group">
                     <button class="btn btn-primary" type="submit">Simpan</button>
                     <button class="btn btn-default" type="reset">Batal</button>
